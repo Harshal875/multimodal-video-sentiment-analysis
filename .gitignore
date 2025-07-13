@@ -1,0 +1,45 @@
+# Virtual Environment
+venvai/
+venv/
+env/
+.env
+
+# Dataset (too large for GitHub)
+dataset/
+*.tar.gz
+*.zip
+MELD.Raw.tar.gz
+
+# Training Outputs & Logs
+runs/
+tensorboard_logs/
+checkpoints/
+models/
+*.pth
+*.pt
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Personal Notes
+learnings*.txt
+notes.txt
+todo.txt
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+audio_temp/
