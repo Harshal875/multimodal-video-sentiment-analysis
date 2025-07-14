@@ -1,0 +1,23 @@
+1)  FOR EACH SENTENCE WE RECIEVED input_ids AND attention_masks FROM meld_dataset.py file. NOW OUR GOAL IS TO FINALLY GET A 128 dimensional
+    VECTOR FOR EACH SENTENCE THAT CAPTURES THE MEANING OF ENTIRE SENTENCE.
+
+2)The goal is to convert the text (encoded by BERT in the form of input_ids and attention_mask) into a lower-dimensional fixed-size vector,
+ which you can later combine with audio/video for multimodal learning.
+
+2)You're loading a pretrained **BERT-base (uncased)** model from HuggingFace Transformers.
+
+- This BERT has:
+  - 12 layers
+
+3) You are freezing the BERT model. So:
+
+✅ It's used for feature extraction
+❌ It's not updated during training (faster and avoids overfitting if data is small)
+
+4) NOW THIS TEXT ENCODER CLASS TAKES THOSE input_ids AND attention_masks AS INPUT AND RETURNS A CLS TOKEN OF 768 DIMENSION/PARAMETER.
+BUT WE WANT OF 128 D, SO WE REDUCE ITS SIZE BY MAPPING TO 128.
+
+5) SO FINALLY IF WE HAVE 32 SAMPLES IN A BATCH WE WILL GET OUTPUT AS [32,128] WHERE EACH SENTENCE MEANING IS CAPTURED BY A 128 PARAMS VECTOR
+
+
+

@@ -181,11 +181,11 @@ def collate_fn(batch):
 def prepare_dataloaders(train_csv, train_video_dir,
                         dev_csv, dev_video_dir,
                         test_csv, test_video_dir, batch_size=32):
-    train_dataset = MELDDataset(train_csv, train_video_dir)
-    dev_dataset = MELDDataset(dev_csv, dev_video_dir)
+    train_dataset = MELDDataset(train_csv, train_video_dir)         #SO BASICALLY training_dataset NOW CONTAINS A DICTIONARY FOR EACH SAMPLE
+    dev_dataset = MELDDataset(dev_csv, dev_video_dir)                #BECAUSE MELDDATASET CLASS RETURNS A DICTIONARY FOR EACH SAMPLE
     test_dataset = MELDDataset(test_csv, test_video_dir)
 
-    train_loader = DataLoader(train_dataset,
+    train_loader = DataLoader(train_dataset,                         #MAKES BATCHES OF TRAINING DATASET
                               batch_size=batch_size,
                               shuffle=True,
                               collate_fn=collate_fn)

@@ -1,0 +1,139 @@
+We want every sample to look like this dictionary in PyTorch:
+
+python
+Copy
+Edit
+{
+  'text_inputs': {
+    'input_ids': tensor([...]),         # [128] long
+    'attention_mask': tensor([...])     # [128] binary
+  },
+  'video_frames': tensor([...]),        # [30, 3, 224, 224]
+  'audio_features': tensor([...]),      # [1, 64, 300]
+  'emotion_label': tensor(3),           # e.g., 'joy' -> 3
+  'sentiment_label': tensor(2)          # e.g., 'positive' -> 2
+}
+
+
+
+🧩 1. Sample Row in CSV
+csv
+Copy
+Edit
+Dialogue_ID,Utterance_ID,Utterance,Emotion,Sentiment
+884,10,"I love this scene so much",joy,positive
+Let’s say this row is at index idx = 0.
+
+🔠 2. Text Encoding (BERT)
+We run:
+
+python
+Copy
+Edit
+text_inputs = tokenizer("I love this scene so much", ...)
+BERT tokenizes it like this:
+
+text
+Copy
+Edit
+Tokens:     [CLS] i love this scene so much [SEP] [PAD] ... [PAD]
+input_ids:  [101, 1045, 2293, 2023, 3047, 2061, 2172, 102, 0, ..., 0]  ← length 128
+attn_mask:  [1,   1,    1,    1,    1,    1,    1,   1, 0, ..., 0]
+So we get:
+
+python
+Copy
+Edit
+text_inputs = {
+  'input_ids': tensor([101, 1045, 2293, ..., 0]),     # [128]
+  'attention_mask': tensor([1, 1, 1, ..., 0])         # [128]
+}
+🎞️ 3. Video Frame Extraction
+We open the file:
+../dataset/train/train_splits/dia884_utt10.mp4
+
+python
+Copy
+Edit
+frames = []  # initially empty
+We loop through video and extract 30 frames.
+Each frame is:
+
+python
+Copy
+Edit
+frame: shape [224, 224, 3]  → RGB image
+frame = frame / 255.0       → Normalize pixel values
+Then we do:
+
+python
+Copy
+Edit
+stacked = np.stack(frames) → shape [30, 224, 224, 3]
+tensor = torch.FloatTensor(stacked).permute(0, 3, 1, 2)
+✅ Output:
+
+python
+Copy
+Edit
+video_frames.shape → [30, 3, 224, 224]
+🔊 4. Audio Feature Extraction
+We extract audio from the .mp4:
+
+bash
+Copy
+Edit
+ffmpeg -i dia884_utt10.mp4 -vn -acodec pcm_s16le -ar 16000 -ac 1 dia884_utt10.wav
+Then:
+
+python
+Copy
+Edit
+waveform, sr = torchaudio.load(...)
+mel_spec = MelSpectrogram()(waveform)
+mel_spec = normalize(mel_spec)
+mel_spec = pad or trim to 300 steps
+✅ Output:
+
+python
+Copy
+Edit
+audio_features.shape → [1, 64, 300]
+1 channel (mono)
+
+64 mel bands
+
+300 time steps
+
+🎭 5. Label Encoding
+python
+Copy
+Edit
+emotion_label = emotion_map["joy"] → 3
+sentiment_label = sentiment_map["positive"] → 2
+📦 6. Final Dictionary
+python
+Copy
+Edit
+{
+  'text_inputs': {
+    'input_ids': tensor([101, 1045, 2293, ..., 0]),     # [128]
+    'attention_mask': tensor([1, 1, 1, ..., 0])         # [128]
+  },
+  'video_frames': tensor([...]),                        # [30, 3, 224, 224]
+  'audio_features': tensor([...]),                      # [1, 64, 300]
+  'emotion_label': tensor(3),
+  'sentiment_label': tensor(2)
+}
+🧠 Now Multiply This by All Rows in CSV
+And your DataLoader batches it up to:
+
+python
+Copy
+Edit
+# If batch size = 32:
+batch['text_inputs']['input_ids'] → [32, 128]
+batch['video_frames']             → [32, 30, 3, 224, 224]
+batch['audio_features']           → [32, 1, 64, 300]
+batch['emotion_label']            → [32]
+batch['sentiment_label']          → [32]

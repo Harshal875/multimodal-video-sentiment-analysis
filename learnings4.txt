@@ -1,0 +1,31 @@
+1) Imagine you're building a machine learning model on your laptop. At first, it’s fine. But soon:
+
+    Your model needs more power (like GPUs).
+    Training takes hours or days.
+    You want to deploy it so others can use it — maybe via a website or app.
+    You need to keep track of different model versions.
+    You want to retrain it regularly as new data comes in.
+
+
+2) 🔄 The SageMaker Flow (like steps in a factory):
+Step	Real-Life Example	What SageMaker Does
+1. Build	Writing a recipe	You write your ML code (in Python) in a cloud notebook.
+2. Train	Cooking the dish	SageMaker uses powerful cloud computers to train your model fast.
+3. Deploy	Serving the food	It creates a live API so others can use your model (like asking a chatbot or getting predictions).
+
+
+3) When you use SageMaker, you don’t train the model on your laptop. Instead:
+
+You upload your code and data to SageMaker in the cloud.
+SageMaker then spins up a powerful machine (with CPU/GPU) on AWS servers.
+That remote machine runs your training job.
+Once the training is done, SageMaker stores the trained model in the cloud (not on your laptop).
+
+
+4) 💻 What You Actually Do:
+On your laptop:
+
+You write the code (like in Jupyter or VS Code).
+You upload it to SageMaker (via SageMaker Studio or AWS CLI).
+SageMaker does the training on AWS’s machines — not on your laptop.
+Even Google Colab does something similar: your code runs on Google’s servers, not your PC

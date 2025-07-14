@@ -290,7 +290,10 @@ class MultimodalTrainer:
         self.model.train()
         running_loss = {'total': 0, 'emotion': 0, 'sentiment': 0}
 
-        for batch in self.train_loader:
+        for batch in self.train_loader:                                             # Iterate over the training data loader
+                                                                                    #and extract the text, video and audio features
+                                                                                    #  along with the labels, because this is what the 
+                                                                                    #melddataset class returns
             device = next(self.model.parameters()).device
             text_inputs = {
                 'input_ids': batch['text_inputs']['input_ids'].to(device),
@@ -305,7 +308,8 @@ class MultimodalTrainer:
             self.optimizer.zero_grad()
 
             # Forward pass
-            outputs = self.model(text_inputs, video_frames, audio_features)
+            outputs = self.model(text_inputs, video_frames, audio_features)             #go see above that multimodal sentiment model class
+                                                                                #this will return a output dict of  emotions and sentiments
 
             # Calculate losses using raw logits
             emotion_loss = self.emotion_criterion(
