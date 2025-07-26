@@ -472,10 +472,7 @@ If you use this work in your research, please cite:
 ```
 
 ## 📞 Contact
-
-- **Author**: Your Name
-- **Email**: your.email@example.com
-- **LinkedIn**: [Your LinkedIn](https://linkedin.com/in/yourprofile)
+- **LinkedIn**: [Your LinkedIn]([https://linkedin.com/in/yourprofile](https://www.linkedin.com/in/harshal-bansal/))
 - **Project**: [GitHub Repository](https://github.com/yourusername/multimodal-sentiment-analysis)
 
 ---
