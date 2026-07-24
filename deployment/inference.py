@@ -184,7 +184,7 @@ class VideoUtteranceProcessor:
             "-c:a", "aac",
             "-y",
             segment_path
-        ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        ], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
         if not os.path.exists(segment_path) or os.path.getsize(segment_path) == 0:
             raise ValueError("Segment extraction failed: " + segment_path)
