@@ -98,6 +98,7 @@ class VideoProcessor:
 
         except Exception as e:
             raise ValueError(f"Video error: {str(e)}")
+          
         finally:
             cap.release()
 
