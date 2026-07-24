@@ -295,7 +295,7 @@ def predict_fn(input_data, model_dict):
 
                 emotion_values, emotion_indices = torch.topk(emotion_probs, 3)
                 sentiment_values, sentiment_indices = torch.topk(
-                    sentiment_probs, 3)
+                    sentiment_probs, 4)
 
             predictions.append({
                 "start_time": segment["start"],
