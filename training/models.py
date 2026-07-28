@@ -113,7 +113,7 @@ class MultimodalSentimentModel(nn.Module):
         self.emotion_classifier = nn.Sequential(
             nn.Linear(256, 64),
             nn.ReLU(),
-            nn.Dropout(0.2),
+            nn.Dropout(0.3),
             nn.Linear(64, 7)  # Sadness, anger
         )
 
