@@ -64,6 +64,7 @@ class AudioEncoder(nn.Module):
             nn.MaxPool1d(2),
             # Higher level features
             nn.Conv1d(64, 128, kernel_size=3),
+            
             nn.BatchNorm1d(128),
             nn.ReLU(),
             nn.AdaptiveAvgPool1d(1)
