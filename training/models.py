@@ -10,7 +10,7 @@ from datetime import datetime
 import os
 
 from meld_dataset import MELDDataset
-from meld_dataset import MELDDataset
+
 
 class TextEncoder(nn.Module):
     def __init__(self):
