@@ -23,6 +23,7 @@ class TextEncoder(nn.Module):
         self.projection = nn.Linear(768, 128)
 
     def forward(self, input_ids, attention_mask):
+        
         # Extract BERT embeddings
         outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
 
