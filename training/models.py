@@ -67,7 +67,7 @@ class AudioEncoder(nn.Module):
             
             nn.BatchNorm1d(128),
             nn.ReLU(),
-            nn.AdaptiveAvgPool1d(1)
+            nn.AdaptiveAvgPool1d(2)
         )
 
         for param in self.conv_layers.parameters():
