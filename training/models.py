@@ -191,6 +191,7 @@ def compute_class_weights(dataset):
 
     # Normalize weights
     emotion_weights = emotion_weights / emotion_weights.sum()
+    
     sentiment_weights = sentiment_weights / sentiment_weights.sum()
 
     return emotion_weights, sentiment_weights
