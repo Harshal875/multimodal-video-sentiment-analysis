@@ -28,8 +28,6 @@ class TextEncoder(nn.Module):
 
         # Use [CLS] token representation
         pooler_output = outputs.pooler_output
-        
-
         return self.projection(pooler_output)
 
 
