@@ -106,7 +106,7 @@ class MultimodalSentimentModel(nn.Module):
             nn.Linear(128 * 3, 256),
             nn.BatchNorm1d(256),
             nn.ReLU(),
-            nn.Dropout(0.3)
+            nn.Dropout(0.6)
         )
 
         # Classification heads
